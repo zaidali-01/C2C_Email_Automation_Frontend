@@ -26,8 +26,8 @@ export default function Logs() {
   const router = useRouter()
 
   useEffect(() => {
-    fetchLogs()
-  }, [selectedFileNum])
+    fetchLogs(searchQuery)
+  }, [selectedFileNum, searchQuery])
 
 
   const fetchLogs = async (query = '') => {
@@ -50,7 +50,7 @@ export default function Logs() {
   const handleSearch = (e) => {
     const query = e.target.value
     setSearchQuery(query)
-    fetchLogs(query, selectedFileNum)
+    //fetchLogs(query, selectedFileNum)
   }
 
   const handleViewEmails = async (developer, date = '', page = 1) => {
@@ -104,7 +104,7 @@ export default function Logs() {
               onChange={(e) => {
                 const value = e.target.value
                 setSelectedFileNum(value)
-                fetchLogs(searchQuery)
+                //fetchLogs(searchQuery)
               }}
               style={styles.fileDropdown}
             >
