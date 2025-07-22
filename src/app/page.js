@@ -1,95 +1,39 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client'
+import Link from 'next/link'
+import '../styles/home.css'
 
-export default function Home() {
+export default function HomePage() 
+{
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.js</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <main className="home-container">
+      <h1 className="home-title">📬 Email Automation Dashboard</h1>
+      <p className="home-subtitle">Streamline outreach using smart, personalized emails powered by AI.</p>
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+      <div className="nav-buttons">
+        <Link href="/upload">
+          <button className="nav-button">📤 Process CSV</button>
+        </Link>
+        <Link href="/preview">
+          <button className="nav-button">📝 Preview Emails</button>
+        </Link>
+        <Link href="/logs">
+          <button className="nav-button">📊 Email Logs</button>
+        </Link>
+      </div>
+
+      <section className="about-section">
+        <h2>About Us</h2>
+        <p>
+          This platform simplifies personalized job application outreach through automated emails configuration.
+        </p>
+        <p>
+            Easily process your data in csv file, generate personalized emails tailored to each opportunity, preview and edit before sending, and manage your communication history — all in one seamless experience. The csv and resumes are available on Google Drive.
+        </p>
+        <h4>CSV Formating:</h4>
+        <div>
+            The csv must contain atleast these eight fields with exactly same column headings.<br></br><pre>Date     Profile     Developer Email     Job title     Company     Client Name     Client Email     Job Description</pre>
         </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+      </section>
+    </main>
+  )
 }

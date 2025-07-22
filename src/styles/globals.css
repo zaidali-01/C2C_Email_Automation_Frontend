@@ -1,0 +1,27 @@
+body {
+  margin: 0;
+  padding: 1rem;
+  font-family: Arial, sans-serif;
+  background: #d4d9ff;
+}
+input, button, textarea, select {
+  padding: 8px;
+  margin: 4px 0;
+  font-size: 1rem;
+}
+form {
+  margin-bottom: 2rem;
+}
+.customDateInput {
+  padding: 0.6rem;
+  border: 1px solid #1d53c9;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.customDateInput:focus {
+  border-color: #0f3ebd;
+  box-shadow: 0 0 0 2px rgba(29, 83, 201, 0.2);
+}
