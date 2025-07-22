@@ -197,8 +197,8 @@ export default function PreviewEmails()
             onChange={handleFileNumberChange} 
             style={styles.dropdown}
           >
-            <option value='1'>File 1</option>
-            <option value='2'>File 2</option>
+            <option value='1'>file1</option>
+            <option value='2'>file2</option>
           </select>
         </div>
         <button
