@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 
 export default function UploadForm() {
@@ -11,8 +11,21 @@ export default function UploadForm() {
   const [response, setResponse] = useState(null)
   const [error, setError] = useState(null)
   const [fieldErrors, setFieldErrors] = useState({})
+  const [authChecked, setAuthChecked] = useState(false)
 
   const router = useRouter()
+
+  useEffect(() => {
+      const auth = sessionStorage.getItem('auth')
+      if (auth !== 'true') {
+        router.push('/')
+      } else {
+        setAuthChecked(true)
+      }}, [])
+
+  if (!authChecked) {
+    return null
+  }
 
   const formatDate = (iso) => {
     if (!iso) return ''
@@ -46,8 +59,11 @@ export default function UploadForm() {
       const res = await axios.post(apiUrl)
       setResponse(res.data)
     } catch (err) {
-      console.error(err)
-      setError('Request failed. Please try again.')
+      if (err.response && err.response.status === 409) {
+        setError('Email generation is already in progress. Please wait and try again.')
+      } else {
+        setError('Request failed. Please try again.')
+      }
       setResponse(null)
     } finally {
       setLoading(false)

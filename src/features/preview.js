@@ -15,6 +15,7 @@ export default function PreviewEmails()
   const [isEditing, setIsEditing] = useState(false)
   const [sending, setSending] = useState(false)
   const [selectedFileNumber, setSelectedFileNumber] = useState('1')
+  const [authChecked, setAuthChecked] = useState(false)
 
   const router = useRouter()
 
@@ -32,9 +33,55 @@ export default function PreviewEmails()
   }
 
   useEffect(() => {
+    const checkStatus = async () => {
+      try {
+        const res = await axios.get(`https://c2cemailautomation-production.up.railway.app/send/status?file_num=${selectedFileNumber}`)
+        setSending(res?.data?.processing)
+      } catch (error) {
+        console.error("Error fetching send status:", error)
+      }
+    }
+
+    checkStatus()
+  }, [selectedFileNumber])
+
+  useEffect(() => {
     fetchEmails()
   }, [selectedFileNumber])
 
+  useEffect(() => {
+    if (!sending) return
+
+    const interval = setInterval(async () => {
+      try {
+        const res = await axios.get(`https://c2cemailautomation-production.up.railway.app/send/status?file_num=${selectedFileNumber}`)
+        const stillProcessing = res?.data?.processing
+
+        if (!stillProcessing) {
+          clearInterval(interval)
+          setSending(false)
+          await fetchEmails()
+        }
+      } catch (error) {
+        console.error("Polling error:", error)
+        clearInterval(interval)
+      }
+    }, 10000)
+
+    return () => clearInterval(interval)
+  }, [sending, selectedFileNumber])
+
+  useEffect(() => {
+    const auth = sessionStorage.getItem('auth')
+    if (auth !== 'true') {
+      router.push('/')
+    } else {
+      setAuthChecked(true)
+    }}, [])
+
+  if (!authChecked) {
+    return null
+  }
 
   const handleRegenerate = async (id) => {
     const confirmed = confirm("Do you want to regenerate this email?")
@@ -108,9 +155,6 @@ export default function PreviewEmails()
     catch (err) {
       console.error(err)
       alert('Failed to send all emails.')
-    }
-    finally {
-      setSending(false)
     }
   }
   if (selectedEmail) {

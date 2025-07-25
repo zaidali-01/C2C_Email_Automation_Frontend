@@ -14,7 +14,7 @@ export default function Logs() {
   const [message, setMessage] = useState(null)
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedDate, setSelectedDate] = useState('')
-
+  const [authChecked, setAuthChecked] = useState(false)
   const [selectedDeveloper, setSelectedDeveloper] = useState(null)
   const [emails, setEmails] = useState([])
   const [emailLoading, setEmailLoading] = useState(false)
@@ -29,6 +29,13 @@ export default function Logs() {
     fetchLogs(searchQuery)
   }, [selectedFileNum, searchQuery])
 
+  useEffect(() => {
+    const auth = sessionStorage.getItem('auth')
+    if (auth !== 'true') {
+      router.push('/')
+    } else {
+      setAuthChecked(true)
+    }}, [])
 
   const fetchLogs = async (query = '') => {
     try {
@@ -47,10 +54,13 @@ export default function Logs() {
     }
   }
 
+  if (!authChecked) {
+    return null
+  }
+
   const handleSearch = (e) => {
     const query = e.target.value
     setSearchQuery(query)
-    //fetchLogs(query, selectedFileNum)
   }
 
   const handleViewEmails = async (developer, date = '', page = 1) => {
