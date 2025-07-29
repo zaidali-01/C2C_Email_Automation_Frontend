@@ -409,7 +409,7 @@ const styles = {
   },
   actions: {
     display: 'flex',
-    gap: '0.75rem',
+    gap: '1rem',
     marginLeft: '1rem',
   },
   icon: {

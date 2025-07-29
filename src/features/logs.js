@@ -114,7 +114,6 @@ export default function Logs() {
               onChange={(e) => {
                 const value = e.target.value
                 setSelectedFileNum(value)
-                //fetchLogs(searchQuery)
               }}
               style={styles.fileDropdown}
             >
@@ -246,12 +245,11 @@ const styles = {
     padding: '2rem',
   },
   heading: {
-    position: 'absolute',
-    left: '50%',
-    transform: 'translateX(-50%)',
-    margin: 0,
     fontSize: '1.5rem',
     fontWeight: 'bold',
+    textAlign: 'center',
+    flex: '1 1 100%',
+    margin: 0,
   },
   info: {
     textAlign: 'center',
@@ -425,12 +423,11 @@ const styles = {
     borderRadius: '6px',
   },
   headerContainer: {
-    position: 'relative',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: '0rem',
-    borderBottom: '1px solid #ddd',
-  },
-
+    flexWrap: 'wrap',
+    gap: '1rem',
+    marginBottom: '1.5rem',
+  }
 }
