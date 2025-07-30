@@ -247,9 +247,9 @@ const styles = {
   heading: {
     fontSize: '1.5rem',
     fontWeight: 'bold',
-    textAlign: 'center',
-    flex: '1 1 100%',
     margin: 0,
+    textAlign: 'center',
+    flexGrow: 1,
   },
   info: {
     textAlign: 'center',
@@ -426,8 +426,7 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    flexWrap: 'wrap',
-    gap: '1rem',
     marginBottom: '1.5rem',
-  }
+    width: '100%',
+  },
 }
