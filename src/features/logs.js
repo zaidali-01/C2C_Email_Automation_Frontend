@@ -22,6 +22,8 @@ export default function Logs() {
   const [selectedEmail, setSelectedEmail] = useState(null)
   const [currentPage, setCurrentPage] = useState(1)
   const [selectedFileNum, setSelectedFileNum] = useState('1')
+  const [remainingEmails, setRemainingEmails] = useState(0)
+
 
   const router = useRouter()
 
@@ -80,6 +82,7 @@ export default function Logs() {
       const res = await axios.get(url)
       setEmails(res.data?.emails || [])
       setCurrentPage(page)
+      setRemainingEmails(res?.data?.remaining)
     } catch (err) {
       console.error(err)
       setEmailError('Failed to fetch emails.')
@@ -206,7 +209,7 @@ export default function Logs() {
               <span style={{marginTop:'15px'}}><strong>Page {currentPage}</strong></span>
               <button
                 onClick={() => handleViewEmails(selectedDeveloper, selectedDate, currentPage + 1)}
-                disabled={emails.length < 10}
+                disabled={emails.length < 10 || remainingEmails==0}
                 style={{ padding: '0.5rem 1rem', borderRadius: '6px', cursor: 'pointer' }}
               >
                 Next
